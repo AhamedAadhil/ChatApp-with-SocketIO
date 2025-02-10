@@ -7,7 +7,8 @@ import {
   signUp,
   signOut,
   updateProfile,
-} from "../controllers/auth.controllers.js";
+  checkAuth,
+} from "../controllers/auth.controller.js";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.post("/signin", signIn);
 router.post("/signout", signOut);
 
 router.put("/update-profile", protectRoute, updateProfile);
+router.get("/check", protectRoute, checkAuth);
 
 export default router;
