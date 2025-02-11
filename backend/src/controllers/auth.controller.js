@@ -41,12 +41,10 @@ export const signUp = async (req, res) => {
       // generate jwt token
       generateToken(newUser._id, res);
       await newUser.save();
+      const { password, ...rest } = newUser._doc;
       return res.status(201).json({
-        _id: newUser._id,
-        fullName: newUser.fullName,
-        email: newUser.email,
-        profilePic: newUser.profilePic,
-        message: "User created successfully",
+        user: rest,
+        message: "Account created successfully",
         success: true,
       });
     } else {
