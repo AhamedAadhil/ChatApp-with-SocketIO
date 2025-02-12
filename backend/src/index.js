@@ -21,6 +21,8 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json({ limit: "10mb" })); // Increase JSON payload size
+app.use(express.urlencoded({ extended: true, limit: "10mb" })); // Increase URL-encoded payload size
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);

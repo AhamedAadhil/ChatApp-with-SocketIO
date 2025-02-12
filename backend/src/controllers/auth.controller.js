@@ -78,11 +78,9 @@ export const signIn = async (req, res) => {
     }
     // generate jwt token
     generateToken(user._id, res);
+    const { password: userPassword, ...rest } = user._doc;
     return res.status(200).json({
-      _id: user._id,
-      fullName: user.fullName,
-      email: user.email,
-      profilePic: user.profilePic,
+      user: rest,
       message: "User logged in successfully",
       success: true,
     });
@@ -122,11 +120,9 @@ export const updateProfile = async (req, res) => {
     if (user) {
       user.profilePic = uploadResponse.secure_url;
       await user.save();
+      const { password, ...rest } = user._doc;
       return res.status(200).json({
-        _id: user._id,
-        fullName: user.fullName,
-        email: user.email,
-        profilePic: user.profilePic,
+        user: rest,
         message: "User profile updated successfully",
         success: true,
       });
