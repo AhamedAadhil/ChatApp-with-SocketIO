@@ -6,9 +6,9 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import { connectDB } from "./libs/db.js";
+import { app, server, io } from "./libs/socket.io.js";
 
 dotenv.config();
-const app = express();
 
 const PORT = process.env.PORT || 5000;
 
@@ -25,9 +25,9 @@ app.use(express.json({ limit: "10mb" })); // Increase JSON payload size
 app.use(express.urlencoded({ extended: true, limit: "10mb" })); // Increase URL-encoded payload size
 
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });
